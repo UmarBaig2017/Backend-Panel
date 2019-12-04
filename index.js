@@ -74,6 +74,22 @@ app.delete('/api/deleteSubject',(req,res)=>{
         })
     }
 })
+app.delete('/api/deleteSubRegion',(req,res)=>{
+    if(req.body._id){
+        Region.findById(req.body._id,(err,doc)=>{
+            if(err)return res.json(handleErr(err))
+            else{
+                let subRegions = doc.subRegions.filter((sub)=>{
+                    return sub!=req.body.subRegions
+                })
+                Region.findByIdAndUpdate(req.body._id,{subRegions:subRegions},{new:true},(er,exam)=>{
+                    if(er)return res.json(handleErr(er))
+                    else return res.json(handleSuccess(exam))
+                })
+            }
+        })
+    }
+})
  app.delete("/api/deleteAdminOrUSer",(req,res)=>{
       admin.auth().deleteUser(req.body.uid)
     .then(()=> {
@@ -178,6 +194,14 @@ app.get("/api/getExmas", (req,res)=>{
         }
     })  
 })
+app.get("/api/getRegions", (req,res)=>{
+    Region.find({},(err,docs)=>{
+        if(err)return res.json(handleErr(err))
+        else{
+            return res.json(handleSuccess(docs))
+        }
+    })  
+})
 
 app.get('/api/getChatsforAdmin',(req,res)=>{  
     Chats.find({},(err,docs)=>{
@@ -255,6 +279,15 @@ app.put('/api/updateTeacher',(req,res)=>{
 
 app.delete('/api/deleteExam',(req,res)=>{
     Exam.findOneAndDelete(req.body.id, (err, doc) => {
+        if (err) res.json(err)
+        res.json({
+            message: "Success",
+            data: doc
+        })
+    })
+ })
+app.delete('/api/deleteRegion',(req,res)=>{
+    Region.findOneAndDelete(req.body.id, (err, doc) => {
         if (err) res.json(err)
         res.json({
             message: "Success",
@@ -381,11 +414,32 @@ app.post('/api/addExam',(req,res)=>{
         })
     }
 })
+app.post('/api/addRegion',(req,res)=>{
+    if(req.body){
+        let exam = req.body
+        Region.create(exam,(err,doc)=>{
+            if(err)res.json(handleErr(err))
+            else res.json(handleSuccess(doc))
+        })
+    }
+})
 app.post('/api/addSubject',(req,res)=>{
     if(req.body){
         let exam = req.body
         console.log(req.body)
         Exam.findByIdAndUpdate(exam._id,{$push:{subjects:exam.name}},{new:true},(err,doc)=>{
+            if(err)return res.json(handleErr(err))
+            else{
+                res.json(handleSuccess(doc))
+            }
+        })
+    }
+})
+app.post('/api/addSubRegions',(req,res)=>{
+    if(req.body){
+        let region = req.body
+        console.log(req.body)
+        Region.findByIdAndUpdate(region._id,{$push:{subRegions:region.name}},{new:true},(err,doc)=>{
             if(err)return res.json(handleErr(err))
             else{
                 res.json(handleSuccess(doc))
