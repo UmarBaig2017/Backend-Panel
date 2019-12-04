@@ -125,7 +125,16 @@ app.put("/api/createUser",(req,res)=>{
         });
 })
 
-
+app.post('/api/getSub',(req,res)=>{
+    let Name = req.body.name
+    Exam.find({name:Name},(err,docs)=>{
+        if(err)throw err
+        res.json({
+            message:'Success',
+            docs
+        })
+    })
+})
 
 
 app.post('/api/addUser', (req, res) => {
