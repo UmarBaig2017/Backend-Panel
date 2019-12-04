@@ -287,7 +287,7 @@ app.put('/api/updateTeacher',(req,res)=>{
 // Delete Routes
 
 app.delete('/api/deleteExam',(req,res)=>{
-    Exam.findOneAndDelete(req.body.id, (err, doc) => {
+    Exam.findOneAndDelete({_id:req.body.id}, (err, doc) => {
         if (err) res.json(err)
         res.json({
             message: "Success",
@@ -295,8 +295,9 @@ app.delete('/api/deleteExam',(req,res)=>{
         })
     })
  })
-app.delete('/api/deleteRegion',(req,res)=>{
-    Region.findOneAndDelete(req.body.id, (err, doc) => {
+
+ app.delete('/api/deleteRegion',(req,res)=>{
+    Region.findOneAndDelete({_id:req.body.id}, (err, doc) => {
         if (err) res.json(err)
         res.json({
             message: "Success",
@@ -305,7 +306,7 @@ app.delete('/api/deleteRegion',(req,res)=>{
     })
  })
 app.delete('/api/deleteUser',(req,res)=>{
-    User.findOneAndDelete(req.body.id, (err, doc) => {
+    User.findOneAndDelete({_id:req.body.id}, (err, doc) => {
         if (err) res.json(err)
         res.json({
             message: "Success",
@@ -314,7 +315,7 @@ app.delete('/api/deleteUser',(req,res)=>{
     })
  })
 app.delete('/api/deleteChat',(req,res)=>{
-    Chats.findOneAndDelete(req.body.id, (err, doc) => {
+    Chats.findOneAndDelete({_id:req.body.id}, (err, doc) => {
         if (err) res.json(err)
         res.json({
             message: "Success",
@@ -323,7 +324,7 @@ app.delete('/api/deleteChat',(req,res)=>{
     })
  })
 app.delete('/api/deletePosts',(req,res)=>{
-    Post.findOneAndDelete(req.body.id, (err, doc) => {
+    Post.findOneAndDelete({_id:req.body.id}, (err, doc) => {
         if (err) res.json(err)
         res.json({
             message: "Success",
