@@ -306,14 +306,33 @@ app.delete('/api/deleteExam',(req,res)=>{
     })
  })
 app.delete('/api/deleteUser',(req,res)=>{
-    User.findOneAndDelete({_id:req.body.id}, (err, doc) => {
+    User.findOneAndDelete({firebaseUID:req.body.uid}, (err, doc) => {
         if (err) res.json(err)
         res.json({
             message: "Success",
             data: doc
         })
-    })
+
+       
+        
+    }
+    )
  })
+ app.delete('/api/deleteTeacher',(req,res)=>{
+    Teacher.findOneAndDelete({firebaseUID:req.body.uid}, (err, doc) => {
+        if (err) res.json(err)
+        res.json({
+            message: "Success",
+            data: doc
+        })
+
+       
+        
+    }
+    )
+ })
+
+
 app.delete('/api/deleteChat',(req,res)=>{
     Chats.findOneAndDelete({_id:req.body.id}, (err, doc) => {
         if (err) res.json(err)
