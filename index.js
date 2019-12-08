@@ -261,6 +261,7 @@ app.put('/api/addTeacherDetails',(req,res)=>{
 })
 app.put('/api/updateTeacher',(req,res)=>{
     if(req.body.firebaseUID){
+        console.log(req.body)
         let data = req.body
         User.findOneAndUpdate({firebaseUID:req.body.firebaseUID},data,{new:true},(err,doc)=>{
             if(err)res.json(handleErr(err))

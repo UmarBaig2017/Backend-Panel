@@ -4,6 +4,19 @@ const postSchema = new mongoose.Schema({
   offerRate:{
       type:Number
   },
+  gender:{
+      type: String
+  },
+  UserId:{
+      type: String,
+        default: Date.now()
+  },
+  date:{
+      type:String,
+  },
+  YearOfStudy:{
+    type: String
+  },
   exam:String,
   Region:String,
   description:{

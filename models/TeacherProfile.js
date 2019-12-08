@@ -5,7 +5,7 @@ const examSchema = new mongoose.Schema({
     },
     subject:String,
     grade:String,
-    yearOfAttending:Date
+    yearOfAttending:String
 })
 const educationSchema = new mongoose.Schema({
     secSchool:{
@@ -27,7 +27,7 @@ const tutorSchema = new mongoose.Schema({
   Region:String,
   education:[educationSchema],
   currentStatus:{
-      type:Number           //0:Full Time, 1:Part Time, 2:Studying
+      type:String           //0:Full Time, 1:Part Time, 2:Studying
   },
   description:{
       type:String           //self description of tutor

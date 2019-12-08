@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
       rrequired:[true,'Last Name is required']
   },
   profilePic:{
-      type:String
+      type:String,
+     default: "https://via.placeholder.com/400x400"
   },
   firebaseUID:{
       type:String,
