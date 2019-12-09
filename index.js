@@ -211,6 +211,14 @@ app.get("/api/getRegions", (req,res)=>{
         }
     })  
 })
+app.get("/api/getUsers", (req,res)=>{
+    User.find({},(err,docs)=>{
+        if(err)return res.json(handleErr(err))
+        else{
+            return res.json(handleSuccess(docs))
+        }
+    })  
+})
 
 app.get('/api/getChatsforAdmin',(req,res)=>{  
     Chats.find({},(err,docs)=>{
@@ -465,11 +473,23 @@ app.post('/api/addSubject',(req,res)=>{
         })
     }
 })
-app.post('/api/addSubRegions',(req,res)=>{
+app.post('/api/updateRegion',(req,res)=>{
     if(req.body){
         let region = req.body
         console.log(req.body)
-        Region.findByIdAndUpdate(region._id,{$push:{subRegions:region.name}},{new:true},(err,doc)=>{
+        Region.findByIdAndUpdate(region._id,{$set:{name:region.name}},{new:true},(err,doc)=>{
+            if(err)return res.json(handleErr(err))
+            else{
+                res.json(handleSuccess(doc))
+            }
+        })
+    }
+})
+app.post('/api/updateExam',(req,res)=>{
+    if(req.body){
+        let exam = req.body
+        console.log(req.body)
+        Exam.findByIdAndUpdate(exam._id,{$set:{name:exam.name}},{new:true},(err,doc)=>{
             if(err)return res.json(handleErr(err))
             else{
                 res.json(handleSuccess(doc))
