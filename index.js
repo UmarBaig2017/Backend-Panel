@@ -49,7 +49,7 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://student-portal-b981b.firebaseio.com"
   });
-admin.auth().getUserByEmail('admin@gmail.com')
+admin.auth().getUserByEmail('adminpanel@gmail.com')
     .then(function(userRecord) {
       // See the UserRecord reference doc for the contents of userRecord.
       console.log('Successfully fetched user data:', userRecord.toJSON());
@@ -139,6 +139,7 @@ app.post('/api/getSub',(req,res)=>{
 
 app.post('/api/addUser', (req, res) => {
     const user = req.body
+    console.log(req.body)
     User.create(user, (err, doc) => {
         if (err) {
             res.json(err)
