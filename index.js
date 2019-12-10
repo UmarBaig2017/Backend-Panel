@@ -474,6 +474,18 @@ app.post('/api/addSubject',(req,res)=>{
         })
     }
 })
+app.post('/api/addSubRegions',(req,res)=>{
+    if(req.body){
+        let reg = req.body
+        console.log(req.body)
+        Region.findByIdAndUpdate(reg._id,{$push:{subRegions:reg.name}},{new:true},(err,doc)=>{
+            if(err)return res.json(handleErr(err))
+            else{
+                res.json(handleSuccess(doc))
+            }
+        })
+    }
+})
 app.post('/api/updateRegion',(req,res)=>{
     if(req.body){
         let region = req.body
