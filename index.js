@@ -587,40 +587,7 @@ app.post('/api/addRegion',(req,res)=>{
         })
     }
 })
-app.get('/api/getUserData:firebaseUID',(req,res)=>{ //tested
-    if(req.params.firebaseUID){
-        User.findOne({ firebaseUID: req.params.firebaseUID },(err,doc)=>{
-            if(err){
-                res.json({
-                    message:"Failed",
-                    err
-                })
-            }
-            else{
-                if(doc.userType===false){
-                    Teacher.findOne({firebaseUID:req.params.firebaseUID},(er,teacher)=>{
-                        if(er)return res.json(handleErr(er))
-                        else{
-                            let data = {
-                                teacherData:teacher,
-                                userData:doc,
-                                userType:false
-                            }
-                            return res.json(handleSuccess(data))
-                        }
-                    })
-                }
-                else{
-                    return res.json({
-                        message:"Success",
-                        doc,
-                        userType:true
-                    })
-                }
-            }
-        })
-    }
-})
+// 
 app.put('/api/getMessages', (req, res) => {         //get messages of a chat from listing
     Chats.findOne({ studentUID: req.body.studentUID, teacherUserID: req.body.teacherUserID }, (err, docs) => {
         if (err) res.json(err)
