@@ -74,6 +74,7 @@ app.delete('/api/deleteSubject',(req,res)=>{
         })
     }
 })
+
 app.delete('/api/deleteSubRegion',(req,res)=>{
     if(req.body._id){
         Region.findById(req.body._id,(err,doc)=>{
@@ -90,6 +91,7 @@ app.delete('/api/deleteSubRegion',(req,res)=>{
         })
     }
 })
+
  app.delete("/api/deleteAdminOrUSer",(req,res)=>{
       admin.auth().deleteUser(req.body.uid)
     .then(()=> {
@@ -237,8 +239,25 @@ app.get('/api/getUsers',(req,res)=>{
         }
     })
 })
+
 app.get('/api/getUserData:firebaseUID',(req,res)=>{ //tested
     User.findOne({ firebaseUID: req.params.firebaseUID },(err,doc)=>{
+        if(err){
+            res.json({
+                message:"Failed",
+                err
+            })
+        }
+        else{
+            res.json({
+                message:"Success",
+                doc
+            })
+        }
+    })
+})
+app.get('/api/getTeacherDetails:firebaseUID',(req,res)=>{ //tested
+    Teacher.findOne({ firebaseUID: req.params.firebaseUID },(err,doc)=>{
         if(err){
             res.json({
                 message:"Failed",
@@ -305,6 +324,7 @@ app.delete('/api/deleteExam',(req,res)=>{
         })
     })
  })
+ 
 
  app.delete('/api/deleteRegion',(req,res)=>{
     Region.findOneAndDelete({_id:req.body.id}, (err, doc) => {
@@ -560,6 +580,8 @@ app.put('/api/updateUser',(req,res)=>{
     })
 })
 
+
+
 app.put('/api/addProfilePic',(req,res)=>{
     User.findOneAndUpdate({firebaseUID},{profilePic:req.body.profilePic},{new:true},
         (err,doc)=>{
@@ -567,6 +589,8 @@ app.put('/api/addProfilePic',(req,res)=>{
         else res.json(handleSuccess(doc))
     })
 })
+
+
 
 app.get('/api/searchUsers:name',(req,res)=>{
     if(req.params.name){
@@ -710,7 +734,7 @@ client.on('connection', (socket) => {
             // });
         }
     });
-
+    
     // Handle clear
     socket.on('clear', function (data) {
         // Remove all chats from collection
