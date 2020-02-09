@@ -47,7 +47,7 @@ db.on('open', () => console.log('database connected'))
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://student-portal-b981b.firebaseio.com"
+    databaseURL: "https://dear-tutor-91cee.firebaseio.com/"
   });
 admin.auth().getUserByEmail('adminpanel@gmail.com')
     .then(function(userRecord) {

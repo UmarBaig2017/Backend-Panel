@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
   },
   firebaseUID:{
       type:String,
-      unique:true
+      unique:true   
   },
   isLoggedIn:{
       type:Boolean,
@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
   },
   createdDate:{
       type:Date,
-      default:Date.now()
+      default:Date.now()    
   },
   telephone:{
       type:String
